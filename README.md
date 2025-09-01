@@ -21,12 +21,10 @@
 
 
 <!-- PROJECT LOGO -->
+<img width="1024" height="1024" alt="Gemini_Generated_Image_75qrz575qrz575qr" src="https://github.com/user-attachments/assets/41174b76-2808-44f0-a5cd-851d97d7a415" />
+
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="https://github.com/user-attachments/assets/0ae1b6d5-1a62-4b41-b2c7-595a0460497" alt="Logo" width="80" height="80">
-  </a>
-
 <h3 align="center">Comprehensive Python-to-Quantum Converter</h3>
 
   <p align="center">
@@ -63,8 +61,6 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 This is a comprehensive converter that transforms **EVERY Python operation** into quantum circuits using IBM Quantum and Qiskit. The tool analyzes Python scripts through AST parsing and converts all operations including:
 
@@ -142,37 +138,77 @@ Get started with the Comprehensive Python-to-Quantum Converter in just a few ste
 
 ## Usage
 
-### Basic Usage
+### Command Line Interface
 
-Convert a Python file to quantum circuits:
+The Comprehensive Python-to-Quantum Converter supports a powerful command-line interface with extensive configuration options:
 
+#### Basic Command Structure
+```sh
+python comprehensive_quantum_converter.py [file] [options]
+```
+
+#### Core Options
+
+| Option | Description | Default | Examples |
+|--------|-------------|---------|----------|
+| `--backend` | Execution backend (`local` or `ibm`) | `local` | `--backend ibm` |
+| `--shots` | Number of quantum measurements | `1024` | `--shots 100`, `--shots 8192` |
+| `--help` | Show help message | - | `--help` |
+
+### Quick Start Examples
+
+#### 1. Basic Local Simulation
+```sh
+# Convert main.py with default settings (local backend, 1024 shots)
+python comprehensive_quantum_converter.py main.py
+
+# Convert with custom shot count (safe for most systems)
+python comprehensive_quantum_converter.py main.py --shots 512
+
+# Convert with custom backend and shots
+python comprehensive_quantum_converter.py main.py --backend ibm --shots 100
+```
+
+#### 2. IBM Quantum Hardware Execution
+```sh
+# Run on IBM Quantum hardware (requires IBM_QUANTUM_TOKEN)
+python comprehensive_quantum_converter.py main.py --backend ibm --shots 2048
+
+# Use IBM Quantum cloud simulator
+python comprehensive_quantum_converter.py main.py --backend ibm --shots 4096
+```
+
+#### 3. Built-in Demo Mode
+```sh
+# Run the comprehensive demo (no file needed)
+python comprehensive_quantum_converter.py demo
+
+# Demo with custom shots (conservative for memory)
+python comprehensive_quantum_converter.py demo --shots 256
+```
+
+### Python API Usage
+
+#### Basic File Conversion
 ```python
 from comprehensive_quantum_converter import convert_python_file
 
 # Convert a Python file
-result = convert_python_file("your_script.py", backend_mode="local", shots=1024)
+result = convert_python_file("main.py", backend_mode="local", shots=1024)
 
 print("Python Output:", result.python_output)
 print("Quantum Output:", result.quantum_output)
 print("Circuit Qubits:", result.circuit_info['num_qubits'])
 ```
 
-### Command Line Usage
-
-```sh
-# Convert a Python file using command line
-python comprehensive_quantum_converter.py your_script.py --backend local --shots 1024
-```
-
-### Advanced Usage with IBM Quantum
-
+#### Advanced Programmatic Usage
 ```python
 from comprehensive_quantum_converter import ComprehensivePythonToQuantumConverter
 
-# Create converter instance
+# Create converter with IBM backend
 converter = ComprehensivePythonToQuantumConverter(backend_mode="ibm")
 
-# Convert Python code
+# Convert Python code string
 python_code = """
 x = 5
 y = 10
@@ -182,26 +218,199 @@ print(f"Sum: {result}")
 
 result = converter.convert_script(python_code, shots=1024)
 
-# Access results
+# Access detailed results
 print("Execution Time:", result.execution_time)
 print("Quantum Algorithm:", result.quantum_algorithm)
 print("Circuit Depth:", result.circuit_info['depth'])
+print("QASM File:", result.circuit_info.get('qasm_file'))
+
+# Variable analysis
+for var_name, var_value in result.variable_values.items():
+    print(f"Variable {var_name} = {var_value}")
+
+# Quantum variable analysis
+for var_name, var_value in result.quantum_variables.items():
+    print(f"Quantum {var_name} = {var_value}")
 ```
 
-### Features Demonstration
+### Backend Configuration Guide
 
-Run the built-in demo:
+#### Local Backend
+- **Best for**: Development, testing, debugging
+- **Speed**: Fast (seconds)
+- **Cost**: Free
+- **Accuracy**: Perfect simulation of quantum behavior
+- **Use case**: Prototyping and learning
 
 ```sh
-python comprehensive_quantum_converter.py demo
+# Local simulation with 100 shots
+python comprehensive_quantum_converter.py main.py --backend local --shots 100
 ```
 
-This demonstrates conversion of complex Python code including:
-- Variable assignments
-- Function definitions and calls
-- Arithmetic operations
-- Control flow (if/else, loops)
-- Print statements
+#### IBM Quantum Backend
+- **Best for**: Production, real quantum hardware
+- **Speed**: Slower (minutes to hours)
+- **Cost**: Free tier available, premium options
+- **Accuracy**: Real quantum noise and decoherence
+- **Use case**: Production quantum computing
+
+```sh
+# IBM Quantum execution (requires token)
+export IBM_QUANTUM_TOKEN="your_token_here"
+python comprehensive_quantum_converter.py main.py --backend ibm --shots 2048
+```
+
+### Shots Configuration Guide
+
+#### Understanding Shots
+- **Shots** = Number of times the quantum circuit is measured
+- **Higher shots** = More accurate results, but slower execution
+- **Lower shots** = Faster results, but less accurate statistics
+
+#### Recommended Shot Counts
+| Use Case | Recommended Shots | Reason |
+|----------|------------------|---------|
+| Quick testing | 100-500 | Fast feedback during development |
+| Accurate results | 1024-4096 | Good balance of speed vs accuracy |
+| Production | 8192+ | Maximum accuracy for critical applications |
+| Statistical analysis | 16384+ | Detailed probability distributions |
+
+#### Examples
+```sh
+# Quick development iteration
+python comprehensive_quantum_converter.py main.py --shots 100
+
+# Balanced production use
+python comprehensive_quantum_converter.py main.py --backend ibm --shots 2048
+
+# Maximum accuracy for research
+python comprehensive_quantum_converter.py main.py --backend ibm --shots 8192
+```
+
+### Output Analysis
+
+#### Understanding Results
+After conversion, you'll receive:
+1. **Python Output**: Original Python script execution results
+2. **Quantum Output**: Quantum simulation results
+3. **Circuit Information**: Quantum circuit metrics
+4. **OpenQASM File**: Generated quantum circuit file (`.qasm`)
+
+#### Sample Output Analysis
+```
+🐍 Python Output:
+hello guys: 2
+
+🐍 Quantum Output:
+🎯 CORRECT RESULT: 2 (Python: 2, confidence: 85) | Result 2: 2 (confidence: 15)
+
+📊 Circuit Information:
+   Qubits: 8
+   Depth: 12
+   Operations: {'h': 8, 'cx': 6, 'measure': 8}
+   OpenQASM File: quantum_code.qasm
+```
+
+### Advanced Examples
+
+#### Converting Complex Python Code
+```python
+# Example: Complex arithmetic and control flow
+code = """
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+result = fibonacci(5)
+print(f"Fibonacci(5) = {result}")
+"""
+
+result = converter.convert_script(code, shots=2048)
+print("Quantum Fibonacci Result:", result.quantum_output)
+```
+
+#### Batch Processing Multiple Files
+```sh
+# Process multiple Python files
+for file in *.py; do
+    echo "Processing $file..."
+    python comprehensive_quantum_converter.py "$file" --backend local --shots 512
+done
+```
+
+#### Configuration with Environment Variables
+```sh
+# Set IBM Quantum token
+export IBM_QUANTUM_TOKEN="your_ibm_token"
+
+# Set default backend
+export QUANTUM_BACKEND="ibm"
+
+# Run with environment settings
+python comprehensive_quantum_converter.py main.py --shots 1024
+```
+
+### Troubleshooting
+
+#### Common Issues and Solutions
+
+**1. IBM Quantum Token Issues**
+```sh
+# Error: "IBM Runtime not configured"
+export IBM_QUANTUM_TOKEN="your_token_from_ibm_quantum"
+python comprehensive_quantum_converter.py main.py --backend ibm
+```
+
+**2. Import Errors**
+```sh
+# Install missing dependencies
+pip install qiskit qiskit-ibm-runtime numpy
+```
+
+**3. Memory Issues with Large Circuits**
+```sh
+# Reduce circuit complexity or increase shots
+python comprehensive_quantum_converter.py large_script.py --shots 100
+
+# For complex algorithms, use fewer shots initially
+python comprehensive_quantum_converter.py complex_algorithm.py --shots 50
+```
+
+**4. Memory Allocation Errors**
+```sh
+# Error: "Unable to allocate X GiB for an array"
+# Solution: Reduce the number of shots for complex circuits
+python comprehensive_quantum_converter.py complex_script.py --shots 50
+
+# Or use local backend with minimal shots for development
+python comprehensive_quantum_converter.py complex_script.py --backend local --shots 25
+```
+
+**5. Slow Execution**
+```sh
+# Use local backend for faster results
+python comprehensive_quantum_converter.py main.py --backend local --shots 512
+```
+
+#### Performance Optimization Tips
+
+1. **For Development**: Use `--backend local --shots 50-100` (minimal memory usage)
+2. **For Testing**: Use `--backend local --shots 512-1024` (balanced performance)
+3. **For Production**: Use `--backend ibm --shots 2048+` (real quantum hardware)
+4. **For Research**: Use `--backend ibm --shots 8192+` (maximum accuracy)
+5. **For Complex Algorithms**: Start with `--shots 25` and gradually increase
+6. **Memory-Constrained Systems**: Use `--backend local --shots 25-50`
+
+### Generated Files
+
+After successful conversion, the tool generates:
+- `quantum_code.qasm`: OpenQASM circuit file
+- `quantum_code.qpy`: QPY format file (advanced users)
+- Console output with detailed analysis
+
+These files can be used with IBM Quantum Composer or other quantum tools.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -215,55 +424,22 @@ This demonstrates conversion of complex Python code including:
 - [x] Advanced circuit optimization
 - [x] Error correction implementation
 - [ ] Support for quantum machine learning operations
-- [ ] Integration with Qiskit Runtime primitives
 - [ ] Real-time quantum circuit visualization
 - [ ] Support for custom quantum gates
 - [ ] Performance benchmarking suite
 - [ ] Web-based interface
-- [ ] Integration with quantum cloud platforms
+- [ ] Integration with other quantum cloud platforms
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Top contributors:
-
-<a href="https://github.com/github_username/repo_name/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=github_username/repo_name" alt="contrib.rocks image" />
-</a>
 
 <!-- LICENSE -->
 
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -282,19 +458,8 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: https://github.com/user-attachments/assets/75adc7aa-7719-4c4f-a9bb-3ba847e12e9f
+
+
 [Python.js]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://python.org/
 [Qiskit.js]: https://img.shields.io/badge/Qiskit-6929C4?style=for-the-badge&logo=qiskit&logoColor=white
