@@ -3,24 +3,34 @@
 <a id="readme-top"></a>
 
 <!--
-*** Thanks for checking out this project. If you have a suggestion
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
 *** or simply open an issue with the tag "enhancement".
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/python-to-quantum-ibm">
-    <img src="https://github.com/user-attachments/assets/0ae1b6d5-1a62-4b41-b2c7-c595a0460497" alt="Logo" width="80" height="80">
+  <a href="https://github.com/github_username/repo_name">
+    <img src="https://github.com/user-attachments/assets/0ae1b6d5-1a62-4b41-b2c7-595a0460497" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Python to Quantum IBM Converter</h3>
+<h3 align="center">Comprehensive Python-to-Quantum Converter</h3>
 
   <p align="center">
-    A comprehensive converter that transforms Python scripts into quantum circuits executable on IBM Quantum backends
+    Transform Python scripts into quantum circuits using IBM Quantum and Qiskit
   </p>
 </div>
 
@@ -56,24 +66,37 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-The Python to Quantum IBM Converter is a comprehensive tool that transforms Python scripts into quantum circuits using Qiskit's powerful quantum computing framework. This project enables developers to convert classical Python operations into quantum algorithms that can be executed on IBM Quantum backends.
+This is a comprehensive converter that transforms **EVERY Python operation** into quantum circuits using IBM Quantum and Qiskit. The tool analyzes Python scripts through AST parsing and converts all operations including:
 
-**Key Features:**
-- **Complete Conversion**: Converts EVERY Python operation to quantum circuits
-- **IBM Quantum Integration**: Native support for IBM Quantum backends and runtime
-- **Arithmetic Operations**: Advanced quantum arithmetic including adders, multipliers, and comparators
-- **QASM Export**: Automatic generation of QASM files for quantum circuit storage
-- **Dual Execution**: Runs both classical Python and quantum versions for comparison
-- **Comprehensive Results**: Detailed execution metrics and circuit analysis
+- **Arithmetic Operations**: Addition, subtraction, multiplication, division
+- **Control Flow**: If/else statements, for/while loops
+- **Functions**: Both built-in and user-defined functions
+- **Variables**: Variable assignments and references
+- **Print Statements**: Console output simulation
+- **Complex Expressions**: Binary operations and comparisons
+
+The converter generates optimized quantum circuits that can be executed on:
+- Local Qiskit simulators
+- IBM Quantum hardware and cloud simulators
+- Any Qiskit-compatible backend
+
+### Key Features
+
+- **Complete Python-to-Quantum Translation**: Converts ALL Python operations to quantum gates
+- **IBM Quantum Integration**: Native support for IBM Quantum Runtime and hardware
+- **OpenQASM Export**: Generates IBM Quantum-compatible circuit files
+- **Advanced Circuit Optimization**: Includes error correction and circuit optimization
+- **Comprehensive Analysis**: Detailed quantum circuit metrics and performance analysis
+- **Deterministic Results**: Ensures correct numerical results for arithmetic operations
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-- [![Python][Python.org]][Python-url]
-- [![Qiskit][Qiskit.org]][Qiskit-url]
-- [![IBM Quantum Runtime][IBM-Quantum.org]][IBM-Quantum-url]
-- [![NumPy][NumPy.org]][NumPy-url]
+- [![Python][Python.js]][Python-url]
+- [![Qiskit][Qiskit.js]][Qiskit-url]
+- [![IBM Quantum][IBMQuantum.js]][IBMQuantum-url]
+- [![NumPy][NumPy.js]][NumPy-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,43 +104,36 @@ The Python to Quantum IBM Converter is a comprehensive tool that transforms Pyth
 
 ## Getting Started
 
-Follow these instructions to get the Python to Quantum IBM Converter up and running on your local machine.
+Get started with the Comprehensive Python-to-Quantum Converter in just a few steps.
 
 ### Prerequisites
 
-Before running this project, ensure you have the following installed:
-
 - Python 3.8 or higher
-- pip package manager
-- IBM Quantum account (for cloud execution)
+- IBM Quantum account (optional, for hardware execution)
+- Basic understanding of quantum computing concepts
 
 ### Installation
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/github_username/python-to-quantum-ibm.git
-   cd python-to-quantum-ibm
+   git clone https://github.com/github_username/repo_name.git
+   cd repo_name
    ```
 
 2. **Install required packages**
    ```sh
-   pip install qiskit
-   pip install qiskit-ibm-runtime
-   pip install numpy
+   pip install qiskit qiskit-ibm-runtime numpy
    ```
 
-3. **Set up IBM Quantum credentials (optional for cloud execution)**
+3. **Set up IBM Quantum (optional)**
    ```sh
-   # Save your IBM Quantum token
-   from qiskit_ibm_runtime import QiskitRuntimeService
-
-   # Replace 'YOUR_TOKEN_HERE' with your actual IBM Quantum token
-   QiskitRuntimeService.save_account(channel="ibm_quantum", token="YOUR_TOKEN_HERE")
+   # Set your IBM Quantum token as environment variable
+   export IBM_QUANTUM_TOKEN="your_token_here"
    ```
 
 4. **Verify installation**
    ```sh
-   python main.py
+   python comprehensive_quantum_converter.py demo
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -128,58 +144,64 @@ Before running this project, ensure you have the following installed:
 
 ### Basic Usage
 
+Convert a Python file to quantum circuits:
+
+```python
+from comprehensive_quantum_converter import convert_python_file
+
+# Convert a Python file
+result = convert_python_file("your_script.py", backend_mode="local", shots=1024)
+
+print("Python Output:", result.python_output)
+print("Quantum Output:", result.quantum_output)
+print("Circuit Qubits:", result.circuit_info['num_qubits'])
+```
+
+### Command Line Usage
+
+```sh
+# Convert a Python file using command line
+python comprehensive_quantum_converter.py your_script.py --backend local --shots 1024
+```
+
+### Advanced Usage with IBM Quantum
+
 ```python
 from comprehensive_quantum_converter import ComprehensivePythonToQuantumConverter
 
-# Initialize the converter
-converter = ComprehensivePythonToQuantumConverter()
+# Create converter instance
+converter = ComprehensivePythonToQuantumConverter(backend_mode="ibm")
 
-# Example Python script to convert
-python_script = """
+# Convert Python code
+python_code = """
 x = 5
 y = 10
 result = x + y
 print(f"Sum: {result}")
 """
 
-# Convert and execute
-result = converter.convert_script(python_script, shots=1024)
+result = converter.convert_script(python_code, shots=1024)
 
-print("Python Output:", result.python_output)
-print("Quantum Output:", result.quantum_output)
+# Access results
 print("Execution Time:", result.execution_time)
-print("Circuit Info:", result.circuit_info)
+print("Quantum Algorithm:", result.quantum_algorithm)
+print("Circuit Depth:", result.circuit_info['depth'])
 ```
 
-### Advanced Features
+### Features Demonstration
 
-```python
-# Use IBM Quantum backend
-converter = ComprehensivePythonToQuantumConverter(backend_mode="ibm")
+Run the built-in demo:
 
-# Complex arithmetic operations
-complex_script = """
-a = 15
-b = 7
-multiplication = a * b
-comparison = a > b
-print(f"{a} * {b} = {multiplication}")
-print(f"{a} > {b}: {comparison}")
-"""
-
-result = converter.convert_script(complex_script, shots=2048)
+```sh
+python comprehensive_quantum_converter.py demo
 ```
 
-### Supported Operations
-
-- **Arithmetic**: Addition, subtraction, multiplication, division
-- **Comparisons**: Greater than, less than, equal to
-- **Control Flow**: If statements, loops (converted to quantum equivalents)
-- **Functions**: User-defined functions
-- **Data Types**: Integers, floats, booleans, strings
-- **Quantum Gates**: H, X, CNOT, Toffoli, and custom quantum operations
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+This demonstrates conversion of complex Python code including:
+- Variable assignments
+- Function definitions and calls
+- Arithmetic operations
+- Control flow (if/else, loops)
+- Print statements
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -187,18 +209,20 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [x] Basic Python to Quantum conversion
-- [x] IBM Quantum backend integration
-- [x] Arithmetic operations (adders, multipliers)
-- [x] QASM circuit export
-- [ ] Advanced quantum algorithms integration
-- [ ] Optimization for specific quantum hardware
-- [ ] Support for complex data structures
-- [ ] Quantum machine learning operations
-- [ ] Real-time quantum-classical hybrid execution
-- [ ] Web interface for easy conversion
+- [x] Basic Python-to-Quantum conversion
+- [x] IBM Quantum Runtime integration
+- [x] OpenQASM file generation
+- [x] Advanced circuit optimization
+- [x] Error correction implementation
+- [ ] Support for quantum machine learning operations
+- [ ] Integration with Qiskit Runtime primitives
+- [ ] Real-time quantum circuit visualization
+- [ ] Support for custom quantum gates
+- [ ] Performance benchmarking suite
+- [ ] Web-based interface
+- [ ] Integration with quantum cloud platforms
 
-See the [open issues](https://github.com/github_username/python-to-quantum-ibm/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -221,8 +245,8 @@ Don't forget to give the project a star! Thanks again!
 
 ### Top contributors:
 
-<a href="https://github.com/github_username/python-to-quantum-ibm/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=github_username/python-to-quantum-ibm" alt="contrib.rocks image" />
+<a href="https://github.com/github_username/repo_name/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=github_username/repo_name" alt="contrib.rocks image" />
 </a>
 
 <!-- LICENSE -->
@@ -237,9 +261,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_twitter) - email@email.com
+Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-Project Link: [https://github.com/github_username/python-to-quantum-ibm](https://github.com/github_username/python-to-quantum-ibm)
+Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -248,33 +272,34 @@ Project Link: [https://github.com/github_username/python-to-quantum-ibm](https:/
 ## Acknowledgments
 
 * [Qiskit](https://qiskit.org/) - The open-source quantum computing framework
-* [IBM Quantum](https://quantum-computing.ibm.com/) - Quantum computing platform and runtime
-* [NumPy](https://numpy.org/) - Fundamental package for scientific computing
-* [Python](https://python.org/) - Programming language used for implementation
+* [IBM Quantum](https://quantum.cloud.ibm.com/) - Quantum computing cloud platform
+* [Qiskit Runtime](https://qiskit.org/ecosystem/ibm-runtime/) - Quantum runtime service
+* [NumPy](https://numpy.org/) - Fundamental package for array computing
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template) - README template
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/python-to-quantum-ibm.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/python-to-quantum-ibm/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/python-to-quantum-ibm.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/python-to-quantum-ibm/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/python-to-quantum-ibm.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/python-to-quantum-ibm/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/python-to-quantum-ibm.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/python-to-quantum-ibm/issues
-[license-shield]: https://img.shields.io/github/license/github_username/python-to-quantum-ibm.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/python-to-quantum-ibm/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-url]: https://github.com/github_username/repo_name/network/members
+[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-url]: https://github.com/github_username/repo_name/stargazers
+[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-url]: https://github.com/github_username/repo_name/issues
+[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/your_linkedin
+[linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: https://github.com/user-attachments/assets/75adc7aa-7719-4c4f-a9bb-3ba847e12e9f
-[Python.org]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
+[Python.js]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://python.org/
-[Qiskit.org]: https://img.shields.io/badge/Qiskit-6929C4?style=for-the-badge&logo=qiskit&logoColor=white
+[Qiskit.js]: https://img.shields.io/badge/Qiskit-6929C4?style=for-the-badge&logo=qiskit&logoColor=white
 [Qiskit-url]: https://qiskit.org/
-[IBM-Quantum.org]: https://img.shields.io/badge/IBM%20Quantum-052FAD?style=for-the-badge&logo=ibm&logoColor=white
-[IBM-Quantum-url]: https://quantum-computing.ibm.com/
-[NumPy.org]: https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white
+[IBMQuantum.js]: https://img.shields.io/badge/IBM%20Quantum-052FAD?style=for-the-badge&logo=ibm&logoColor=white
+[IBMQuantum-url]: https://quantum.cloud.ibm.com/
+[NumPy.js]: https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white
 [NumPy-url]: https://numpy.org/
